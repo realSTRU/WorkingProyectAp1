@@ -1,0 +1,194 @@
+@page "/R_Ocupaciones"
+@page "/R_Ocupaciones/{OcupacionID:int}"
+
+
+@inject OcupacionesBLL ocupacionesBll;
+
+
+<PageTitle>Registro Ocuapciones.</PageTitle>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <style>
+            
+        body{
+            background-image: url('https://wallpaper.dog/large/5451779.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        label {
+            color:black;
+        }
+
+        h4 {
+            text-align:center;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <EditForm model="Ocupacion">
+        <DataAnnotationsValidator/>
+
+        <div class="container">
+            <div class="card text-dark bg-light mb-3 shadow-lg">
+                <div class="card-header">
+                    <h4>Registro de ocupaciones.</h4>
+                </div>
+
+                <div class="card-body"> 
+
+                    <div class="form-group">
+                        <div class="col-3 mb-3">
+                        
+                            <label for="IDOcupacion"><b>OcuacionID:</b></label>
+                            <div class="input-group mb-2" >
+                                <input @bind-value="ocupacion.OcupacionID" type="text" id="IDOcupacion" class="form-control">
+                                <button class="btn btn-primary" type="button" id="BBuscar" @onclick="Buscar"><b><Buscar class="oi oi-magnifying-glass"/> Buscar</b></button>
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="O_Descripcion"><b>Descripcion:</b></label>
+                            <div class="input-group mb-6">
+                                <input @bind-value="ocupacion.Descripcion"type="text" id="O_Descripcion" class="form-control"/>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <label for="O_Descripcion"><b>Sueldo:</b></label>
+                            <div class="input-group">
+                                <input @bind-value="ocupacion.Sueldo" type="text" id="O_Descripcion" class="form-control"/>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <div class="row">
+                        <div class="btn-group">
+                            <button class="btn btn-dark" type="button" @onclick="Guardar"><i class="oi oi-document"/><b> Guardar</b></button>
+                            <button class="btn btn-secondary" type="button" @onclick="Nuevo"><i class="oi oi-file"/><b> Nuevo</b></button>
+                            <button class="btn btn-dark" type="button" @onclick="Eliminar"><i class="oi oi-trash"/><b> Eliminar</b></button>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+       
+    </EditForm>
+    
+</body>
+
+
+
+
+
+
+
+
+
+
+
+@code
+{
+
+    [Parameter]
+
+    public int OcupacionID {get; set;}
+
+    public Ocupacion ocupacion {get; set;} = new Ocupacion();
+
+
+    protected override void OnInitialized(){
+
+        if(OcupacionID > 0)
+        {
+            this.ocupacion.OcupacionID = OcupacionID;
+            this.Buscar();
+        }
+
+
+    }
+
+    private void Buscar()
+    {
+        var ocupacionEncontrada = ocupacionesBll.Buscar(ocupacion.OcupacionID);
+
+        if(ocupacionEncontrada != null)
+        {
+            Console.WriteLine($"Se encontro la ocupacion con el ID{this.ocupacion.OcupacionID}");
+            this.ocupacion = ocupacionEncontrada;
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Ocupacion no encontrada");
+        }
+    }
+
+    public void Nuevo()
+    {
+        this.ocupacion = new Ocupacion();
+    }
+
+    public bool Validar(){
+        return this.ocupacion.Descripcion != "" && this.ocupacion.Sueldo > 0;
+    }
+
+    public void Guardar(){
+
+        if(Validar())
+        {
+            ocupacionesBll.Guardar(this.ocupacion);
+            Console.WriteLine($"Se guardo en el {this.ocupacion.OcupacionID}");
+            Nuevo();
+        }
+        else
+        {
+            Console.WriteLine("Campos no validos o no completados");
+        }
+    }
+
+    public void Eliminar()
+    {
+        if(Validar())
+        {
+            bool RES = ocupacionesBll.Eliminar(this.ocupacion);
+
+            if(RES == false)
+            {
+                Console.WriteLine("Eliminado Correctamente");
+                Nuevo();
+            }
+            else
+            {
+                Console.WriteLine("Errores al guardar la ocupacion");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Id No valido");
+        }
+    }
+
+
+
+
+    
+
+
+}

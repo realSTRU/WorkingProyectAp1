@@ -7,7 +7,7 @@ public class Persona
 
 
     [Key]
-    public int PersonaId { get; set; }
+    public int PersonaID { get; set; }
 
     public string? Nombre { get; set; }
 
@@ -22,6 +22,9 @@ public class Persona
     public string? Direccion {get; set;}
 
     public DateTime? FechaNacimiento { get; set; }
+
+    [ForeignKey("PersonaID")]
+    public List<Prestamo> Prestamos { get; set; }
 
     public int OcupacionID {get; set;}
 

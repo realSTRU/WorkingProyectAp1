@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">RegistroPrestamosAp1</a>
+        <a class="navbar-brand" href=""><em>Sr.Prestamos.</em></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -15,20 +15,49 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="R_Personas" @onclick="()=>expandSubMenu2 = !expandSubMenu2" Match="NavLinkMatch.All">
+                <span class="oi oi-plus" aria-hidden="true"></span> Registros
             </NavLink>
+            @if(expandSubMenu2){
+                <NavLink class="expand-menu" href="R_Prestamos" Match="NavLinkMatch.All">
+                    <span class="oi oi-plus" aria-hidden="true" style="text-decoration:none;"></span>Registro Prestamos.
+                </NavLink>
+                 <NavLink class="expand-menu" href="R_Ocupaciones" Match="NavLinkMatch.All">
+                    <span class="oi oi-plus" aria-hidden="true"></span>Registro Ocupaciones.
+                </NavLink>
+                 <NavLink class="expand-menu" href="R_Personas" Match="NavLinkMatch.All">
+                    <span class="oi oi-plus" aria-hidden="true"></span>Resgistro Personas.
+                </NavLink>
+            }
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+         <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Consultas" @onclick="()=>expandSubMenu = !expandSubMenu" Match="NavLinkMatch.All">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Consultas
             </NavLink>
+            @if(expandSubMenu){
+            
+                <NavLink class="expand-menu" href="C_Prestamos" Match="NavLinkMatch.All">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Consultas Prestamos.
+                </NavLink>
+                 <NavLink class="expand-menu" href="C_Ocupaciones" Match="NavLinkMatch.All">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Consultas Ocupaciones.
+                </NavLink>
+                 <NavLink class="expand-menu" href="C_Personas" Match="NavLinkMatch.All">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Consultas Personas.
+                </NavLink>
+            }
+       
         </div>
+        
+        
+        
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
+    private bool expandSubMenu;
+    private bool expandSubMenu2;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
