@@ -13,7 +13,7 @@ public class Persona
 
     public string? Telefono {get; set;}
 
-    public DateTime Fecha {get; set;}
+    public DateOnly? Fecha {get; set;}
 
     public string? Celular{get; set;}
 
@@ -21,10 +21,10 @@ public class Persona
 
     public string? Direccion {get; set;}
 
-    public DateTime? FechaNacimiento { get; set; }
+    public DateOnly? FechaNacimiento { get; set; }
 
     [ForeignKey("PersonaID")]
-    public List<Prestamo> Prestamos { get; set; }
+    public List<Prestamo>? Prestamos { get; set; }
 
     public int OcupacionID {get; set;}
 
