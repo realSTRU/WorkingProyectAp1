@@ -21,3 +21,107 @@
 
     </style>
 </head>
+
+
+
+<body>
+
+    <EditForm model="Prestamo">
+        <DataAnnotationsValidator/>
+
+            <div class="container">
+                <div class="card text-dark bg-light mb-3 shadow-lg">
+                    <div class="card-header">
+                        <h4>Registro persona.</h4>
+                    </div>
+                    
+
+                    <div class="card-body">
+                        
+                        <div class="form-group">
+
+                            <div class="col-5 mb-3">
+                                <label for="IDPrestamo">Prestamo Id:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="IDPrestamo">
+                                    <button class="btn btn-outline-primary" type="button"><b><Buscar class="oi oi-magnifying-glass"/> Buscar</b></button>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="Fprestamo"><b>Fecha prestamo:</b></label>
+                                <div class="input-group mb-6">
+                                    <input type="date"  class="form-control" aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2" id="FPrestamo"/>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="FprestamoV"><b>Fecha vencimiento:</b></label>
+                                <div class="input-group mb-6">
+                                    <input type="date"  class="form-control" aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2" id="FPrestamoV"/>
+                                </div>
+
+                            </div>
+
+                             <div class="mb-3">
+                                <label for="Persona"><b>Persona:</b></label>
+                                <div class="input-group mb-6">
+                                    <select type="text" id="Persona" class="form-control"/>
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="Concepto"><b>Concepto:</b></label>
+                                <div class="input-group mb-6">
+                                    <input type="text" id="Concepto" class="form-control"/>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Monto"><b>Monto:</b></label>
+                                <div class="input-group mb-6">
+                                    <input type="text" id="Monto" class="form-control"/>
+                                </div>
+
+                            </div>
+
+
+
+                            
+
+                            
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <div class="row">
+                            <div class="btn-group">
+                                <button class="btn btn-dark" type="button"><i class="oi oi-document"/><b> Guardar</b></button>
+                                <button class="btn btn-secondary" type="button"><i class="oi oi-file"/><b> Nuevo</b></button>
+                                <button class="btn btn-dark" type="button"><i class="oi oi-trash"/><b> Eliminar</b></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            
+
+
+
+
+    </EditForm>
+
+
+
+</body>
+

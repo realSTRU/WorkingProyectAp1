@@ -8,9 +8,9 @@ public class Prestamo
     [Key]
     public int PrestamoID { get; set; }
 
-    public DateTime? Fecha { get; set; }
+    public DateOnly? Fecha { get; set; }
 
-    public DateTime? Vence { get; set; }
+    public DateOnly? Vence { get; set; }
 
 
     public int PersonaID { get; set; }
