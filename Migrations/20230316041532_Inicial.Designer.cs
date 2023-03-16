@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RegistroPrestamosAp1.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230206202930_Segunda Migracion")]
-    partial class SegundaMigracion
+    [Migration("20230316041532_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace RegistroPrestamosAp1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Balance")
+                    b.Property<double?>("Balance")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Celular")

@@ -39,7 +39,7 @@ namespace RegistroPrestamosAp1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Balance")
+                    b.Property<double?>("Balance")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Celular")

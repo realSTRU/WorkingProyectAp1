@@ -51,12 +51,9 @@ public class PersonaBLL
     public bool Eliminar(Persona Persona){
 
         _contexto.Entry(Persona).State = EntityState.Deleted;
-        _contexto.Database.ExecuteSqlRaw($"DELETE FROM Ocupacion WHERE OcupacionID={Persona.PersonaID};");
-        bool paso = _contexto.SaveChanges() > 0;
-        _contexto.Entry(Persona).State = EntityState.Detached;
-        Console.WriteLine($"{paso}");
-
-        return paso;
+        _contexto.Database.ExecuteSqlRaw($"DELETE FROM Persona WHERE PersonaID={Persona.PersonaID};");
+        return _contexto.SaveChanges() > 0;
+        
     }
 
    

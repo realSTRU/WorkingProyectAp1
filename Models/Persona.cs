@@ -28,7 +28,7 @@ public class Persona
 
     public int OcupacionID {get; set;}
 
-    public double Balance {get; set;}
+    public double? Balance {get; set;} = 0; 
 
 
 

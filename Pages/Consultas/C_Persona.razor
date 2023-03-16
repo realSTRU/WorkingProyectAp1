@@ -1,6 +1,9 @@
 @page "/C_Personas"
 
 
+@inject PersonaBLL personas
+@inject OcupacionesBLL ocupaciones
+
 <PageTitle>Consulta Persona.</PageTitle>
 
 <head>
@@ -42,11 +45,27 @@
                             <th scope="col">Email</th>
                             <th scope="col">Ocupacion</th>
                             <th scope="col">Balance</th>
-                            <th scope="col">Telefono</th>
+                            
 
                         </tr>
                     </thead>
-                    
+                    <tbody>
+
+                        @foreach(var persona in L_Persona)
+                        {
+                            <tr>
+                                <td>@persona.PersonaID</td>
+                                <td>@persona.Nombre</td>
+                                <td>@persona.Telefono</td>
+                                <td>@persona.Celular</td>
+                                <td>@persona.FechaNacimiento</td>
+                                <td>@persona.Email</td>
+                                <td>@ocupaciones.Buscar(persona.OcupacionID).Descripcion</td>
+                                <td>@persona.Balance</td>
+                            </tr>
+                        }
+
+                    </tbody>
                        
                 </table>
 
@@ -56,3 +75,17 @@
 
     </div>
 </body>
+
+
+@code
+{
+
+
+    public List<Persona> L_Persona = new List<Persona>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        L_Persona= personas.GetList();
+    }
+
+}

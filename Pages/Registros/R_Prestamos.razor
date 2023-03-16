@@ -1,4 +1,11 @@
 @page "/R_Prestamos"
+@page "/R_Prestamos/{PrestamoID:int}"
+
+
+@inject PersonaBLL personas
+@inject PrestamoBLL prestamos
+
+
 
 
 
@@ -32,7 +39,7 @@
             <div class="container">
                 <div class="card text-dark bg-light mb-3 shadow-lg">
                     <div class="card-header">
-                        <h4>Registro persona.</h4>
+                        <h4>Registro Prestamo.</h4>
                     </div>
                     
 
@@ -40,34 +47,33 @@
                         
                         <div class="form-group">
 
-                            <div class="col-5 mb-3">
-                                <label for="IDPrestamo">Prestamo Id:</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="IDPrestamo">
-                                    <button class="btn btn-outline-primary" type="button"><b><Buscar class="oi oi-magnifying-glass"/> Buscar</b></button>
+                            <div style="display: flex; justify-content: space-between;">
+
+                                <div class="col-5 mb-3">
+                                    <label for="IDPrestamo">Prestamo Id:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="IDPrestamo">
+                                        <button class="btn btn-outline-primary" type="button"><b><Buscar class="oi oi-magnifying-glass"/> Buscar</b></button>
+                                    </div>
                                 </div>
+
+                                <div class="col-5 mb-3">
+                                    <label for="IDPrestamo">Persona Id:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="IDPrestamo">
+                                        <button class="btn btn-outline-primary" type="button"><b><Buscar class="oi oi-magnifying-glass"/> Buscar</b></button>
+                                    </div>
+                                </div>
+                            
+
                             </div>
                             
+
+                           
+
+                            
                             <div class="mb-3">
-                                <label for="Fprestamo"><b>Fecha prestamo:</b></label>
-                                <div class="input-group mb-6">
-                                    <input type="date"  class="form-control" aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2" id="FPrestamo"/>
-                                </div>
-
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="FprestamoV"><b>Fecha vencimiento:</b></label>
-                                <div class="input-group mb-6">
-                                    <input type="date"  class="form-control" aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2" id="FPrestamoV"/>
-                                </div>
-
-                            </div>
-
-                             <div class="mb-3">
-                                <label for="Persona"><b>Persona:</b></label>
+                                <label for="Persona"><b>Nombre solicitante:</b></label>
                                 <div class="input-group mb-6">
                                     <select type="text" id="Persona" class="form-control"/>
                                 </div>
@@ -91,6 +97,23 @@
 
                             </div>
 
+                            <div class="mb-3">
+                                <label for="Fprestamo"><b>Fecha prestamo:</b></label>
+                                <div class="input-group mb-6">
+                                    <input  type="date"  class="form-control" aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2" id="FPrestamo"/>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="FprestamoV"><b>Fecha vencimiento:</b></label>
+                                <div class="input-group mb-6">
+                                    <input type="date"  class="form-control" aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2" id="FPrestamoV"/>
+                                </div>
+
+                            </div>
 
 
                             
@@ -125,3 +148,94 @@
 
 </body>
 
+
+
+
+@code
+{
+    [Parameter]
+
+    public int PrestamoID {get; set;}
+
+    public Persona persona {get; set;}
+
+    public Prestamo prestamo {get; set;}
+
+    protected override void OnInitialized()
+    {
+        
+        if(PrestamoID > 0)
+        {
+            this.prestamo.PrestamoID = PrestamoID;
+            //this.Buscar();
+        }
+
+
+        
+    }
+
+
+    private void Buscar()
+    {
+        var prestamoEncontrado  = prestamos.Buscar(prestamo.PrestamoID);
+
+        if(prestamoEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro la ocupacion con el ID{this.prestamo.PrestamoID}");
+            this.prestamo = prestamoEncontrado;
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Ocupacion no encontrada");
+        }
+    }
+
+    public void Nuevo()
+    {
+        this.prestamo= new Prestamo();
+    }
+
+    public bool Validar(){
+        return personas.Existe(prestamo.PrestamoID) && this.prestamo.Concepto != null && this.prestamo.Monto > 0;
+    }
+
+    public void Guardar(){
+
+        if(Validar())
+        {
+            prestamos.Guardar(this.prestamo);
+            Console.WriteLine($"Se guardo en el {this.prestamo.PersonaID}");
+            Nuevo();
+        }
+        else
+        {
+            Console.WriteLine("Campos no validos o no completados");
+        }
+    }
+
+    public void Eliminar()
+    {
+        if(Validar())
+        {
+            bool RES = prestamos.Eliminar(this.prestamo);
+
+            if(RES == false)
+            {
+                Console.WriteLine("Eliminado Correctamente");
+                Nuevo();
+            }
+            else
+            {
+                Console.WriteLine("Errores al guardar la ocupacion");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Id No valido");
+        }
+    }
+
+
+
+}

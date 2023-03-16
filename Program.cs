@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using RegistroPrestamosAp1.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +12,6 @@ builder.Services.AddScoped<PersonaBLL>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 IServerSideBlazorBuilder serverSideBlazorBuilder = builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<Contexto>(options=>options.UseSqlite(ConStr));
 

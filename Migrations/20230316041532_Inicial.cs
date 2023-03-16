@@ -33,13 +33,13 @@ namespace RegistroPrestamosAp1.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: true),
                     Telefono = table.Column<string>(type: "TEXT", nullable: true),
-                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: true),
                     Celular = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     Direccion = table.Column<string>(type: "TEXT", nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    FechaNacimiento = table.Column<DateOnly>(type: "TEXT", nullable: true),
                     OcupacionID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Balance = table.Column<double>(type: "REAL", nullable: false)
+                    Balance = table.Column<double>(type: "REAL", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,8 +52,8 @@ namespace RegistroPrestamosAp1.Migrations
                 {
                     PrestamoID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Vence = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: true),
+                    Vence = table.Column<DateOnly>(type: "TEXT", nullable: true),
                     PersonaID = table.Column<int>(type: "INTEGER", nullable: false),
                     Concepto = table.Column<string>(type: "TEXT", nullable: true),
                     Monto = table.Column<double>(type: "REAL", nullable: true),
