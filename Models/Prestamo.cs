@@ -8,7 +8,7 @@ public class Prestamo
     [Key]
     public int PrestamoID { get; set; }
 
-    public DateOnly? Fecha { get; set; }
+    public DateOnly? Fecha { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     public DateOnly? Vence { get; set; }
 

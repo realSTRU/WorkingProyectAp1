@@ -8,6 +8,7 @@ var ConStr = builder.Configuration.GetConnectionString("ConStr");
 //Inyeccion de las BLLS
 builder.Services.AddScoped<OcupacionesBLL>();
 builder.Services.AddScoped<PersonaBLL>();
+builder.Services.AddScoped<PrestamoBLL>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

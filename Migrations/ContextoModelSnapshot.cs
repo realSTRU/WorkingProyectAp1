@@ -31,6 +31,14 @@ namespace RegistroPrestamosAp1.Migrations
                     b.HasKey("OcupacionID");
 
                     b.ToTable("Ocupacion");
+
+                    b.HasData(
+                        new
+                        {
+                            OcupacionID = 1,
+                            Descripcion = "Full stack DevOp",
+                            Sueldo = 89000.0
+                        });
                 });
 
             modelBuilder.Entity("Persona", b =>
@@ -51,9 +59,6 @@ namespace RegistroPrestamosAp1.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly?>("Fecha")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateOnly?>("FechaNacimiento")
                         .HasColumnType("TEXT");
 
@@ -69,6 +74,44 @@ namespace RegistroPrestamosAp1.Migrations
                     b.HasKey("PersonaID");
 
                     b.ToTable("Persona");
+
+                    b.HasData(
+                        new
+                        {
+                            PersonaID = 1,
+                            Balance = 0.0,
+                            Celular = "829-863-5107",
+                            Direccion = "Desconocida o prefiere no decirelo",
+                            Email = "CesarUnknowPro@Hotmail.com",
+                            FechaNacimiento = new DateOnly(2003, 7, 8),
+                            Nombre = "Cesar Reynoso",
+                            OcupacionID = 1,
+                            Telefono = "829-863-5107"
+                        },
+                        new
+                        {
+                            PersonaID = 2,
+                            Balance = 0.0,
+                            Celular = "829-863-5107",
+                            Direccion = "Desconocida o prefiere no decirelo",
+                            Email = "CesarUnknowPro@Hotmail.com",
+                            FechaNacimiento = new DateOnly(2003, 7, 8),
+                            Nombre = "Casper Gonzalez Reynoso",
+                            OcupacionID = 1,
+                            Telefono = "829-863-5107"
+                        },
+                        new
+                        {
+                            PersonaID = 3,
+                            Balance = 0.0,
+                            Celular = "829-863-5107",
+                            Direccion = "Desconocida o prefiere no decirelo",
+                            Email = "CesarUnknowPro@Hotmail.com",
+                            FechaNacimiento = new DateOnly(2003, 7, 8),
+                            Nombre = "Gustavo Reynoso",
+                            OcupacionID = 1,
+                            Telefono = "829-863-5107"
+                        });
                 });
 
             modelBuilder.Entity("Prestamo", b =>

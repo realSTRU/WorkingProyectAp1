@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace RegistroPrestamosAp1.Migrations
 {
     /// <inheritdoc />
@@ -33,7 +35,6 @@ namespace RegistroPrestamosAp1.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: true),
                     Telefono = table.Column<string>(type: "TEXT", nullable: true),
-                    Fecha = table.Column<DateOnly>(type: "TEXT", nullable: true),
                     Celular = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     Direccion = table.Column<string>(type: "TEXT", nullable: true),
@@ -68,6 +69,21 @@ namespace RegistroPrestamosAp1.Migrations
                         principalTable: "Persona",
                         principalColumn: "PersonaID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ocupacion",
+                columns: new[] { "OcupacionID", "Descripcion", "Sueldo" },
+                values: new object[] { 1, "Full stack DevOp", 89000.0 });
+
+            migrationBuilder.InsertData(
+                table: "Persona",
+                columns: new[] { "PersonaID", "Balance", "Celular", "Direccion", "Email", "FechaNacimiento", "Nombre", "OcupacionID", "Telefono" },
+                values: new object[,]
+                {
+                    { 1, 0.0, "829-863-5107", "Desconocida o prefiere no decirelo", "CesarUnknowPro@Hotmail.com", new DateOnly(2003, 7, 8), "Cesar Reynoso", 1, "829-863-5107" },
+                    { 2, 0.0, "829-863-5107", "Desconocida o prefiere no decirelo", "CesarUnknowPro@Hotmail.com", new DateOnly(2003, 7, 8), "Casper Gonzalez Reynoso", 1, "829-863-5107" },
+                    { 3, 0.0, "829-863-5107", "Desconocida o prefiere no decirelo", "CesarUnknowPro@Hotmail.com", new DateOnly(2003, 7, 8), "Gustavo Reynoso", 1, "829-863-5107" }
                 });
 
             migrationBuilder.CreateIndex(

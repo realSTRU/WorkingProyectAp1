@@ -1,6 +1,7 @@
 @page "/C_Prestamos"
 
-
+@inject PrestamoBLL prestamos
+@inject PersonaBLL personas
 
 <PageTitle>Consulata Prestamos.</PageTitle>
 
@@ -45,6 +46,22 @@
 
                         </tr>
                     </thead>
+
+                    <tbody>
+                        @foreach(var item in L_Prestamo)
+                        {
+                            <tr>
+                                <td>@item.PrestamoID</td>
+                                <td>@personas.Buscar(item.PersonaID).PersonaID</td>
+                                <td>@personas.Buscar(item.PersonaID).Nombre</td>
+                                <td>@item.Fecha</td>
+                                <td>@item.Vence</td>
+                                <td>@item.Concepto</td>
+                                <td>@item.Monto</td>
+                                
+                            </tr>
+                        }
+                    </tbody>
                     
                        
                 </table>
@@ -55,3 +72,15 @@
 
     </div>
 </body>
+
+
+@code
+{
+    public List<Prestamo> L_Prestamo = new List<Prestamo>();
+
+        protected override void OnInitialized()
+        {
+            L_Prestamo = prestamos.GetList();
+        }
+}
+

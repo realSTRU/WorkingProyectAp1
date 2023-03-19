@@ -43,8 +43,41 @@ public class PrestamoBLL
 
     private bool Modificar(Prestamo prestamo){
 
-        _contexto.Entry(prestamo).State= EntityState.Modified;
+        var PrestamoAnterior = _contexto.Prestamo
+        .Where(p=>p.PrestamoID == prestamo.PrestamoID)
+        .AsNoTracking()
+        .SingleOrDefault();
+
+        if(prestamo.Monto != PrestamoAnterior.Monto)
+        {
+            var persona = _contexto.Persona
+            .Where(o => o.PersonaID == prestamo.PrestamoID)
+            .AsNoTracking()
+            .SingleOrDefault();
+            
+            if(persona != null)
+            {
+                
+                persona.Balance -= PrestamoAnterior.Monto;
+                persona.Balance += prestamo.Monto;
+                _contexto.Entry(persona).State = EntityState.Modified;
+                _contexto.SaveChanges();
+                _contexto.Entry(persona).State = EntityState.Modified;
+
+            }
+            else
+            {
+                Console.WriteLine($"Persona con el Id:{prestamo.PersonaID} No encontrada");
+            }
+            
+        }
+        else
+        {
+            Console.WriteLine("No hubo cambios en el monto del prestamo");
+        }
         
+        _contexto.Entry(prestamo).State = EntityState.Modified;
+
         var modificado = _contexto.SaveChanges() > 0;
 
         _contexto.Entry(prestamo).State = EntityState.Detached;
@@ -63,10 +96,33 @@ public class PrestamoBLL
 
     public bool Eliminar(Prestamo prestamo){
 
+        var persona = _contexto.Persona.Where(p => p.PersonaID == prestamo.PersonaID).AsNoTracking().SingleOrDefault();
+
+        if(persona != null)
+        {
+            persona.Balance -= prestamo.Monto;
+            _contexto.Entry(persona).State =EntityState.Modified;
+            _contexto.SaveChanges();
+            _contexto.Entry(persona).State = EntityState.Detached;
+        }
+        else
+        {
+            Console.WriteLine("Persona No Existe");
+
+        }
+
+
+
         _contexto.Entry(prestamo).State = EntityState.Deleted;
-        _contexto.Database.ExecuteSqlRaw($"DELETE FROM Prestamo WHERE PrestamoID={prestamo.PrestamoID};");
-        return _contexto.SaveChanges() > 0;
+
+        var eliminado = _contexto.SaveChanges() > 0;
+
+        _contexto.Entry(prestamo).State = EntityState.Detached;
+
+        return eliminado;
         
+
+
     }
 
    
