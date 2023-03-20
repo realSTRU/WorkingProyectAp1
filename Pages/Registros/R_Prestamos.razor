@@ -126,7 +126,7 @@
                             <div class="btn-group">
                                 <button class="btn btn-dark" type="button" @onclick="Guardar"><i class="oi oi-document"/><b> Guardar</b></button>
                                 <button class="btn btn-secondary" type="button" @onclick="Nuevo"><i class="oi oi-file"/><b> Nuevo</b></button>
-                                <button class="btn btn-dark" type="button"><i class="oi oi-trash" @onclick ="Eliminar"/><b> Eliminar</b></button>
+                                <button class="btn btn-dark" type="button" @onclick ="Eliminar"><i class="oi oi-trash" /><b> Eliminar</b></button>
                             </div>
                         </div>
                     </div>
@@ -226,7 +226,7 @@
             }
             else
             {
-                Console.WriteLine("Errores al guardar la ocupacion");
+                Console.WriteLine("Errores al eliminar la ocupacion");
             }
         }
         else

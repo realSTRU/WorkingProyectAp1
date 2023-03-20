@@ -50,10 +50,7 @@ public class PrestamoBLL
 
         if(prestamo.Monto != PrestamoAnterior.Monto)
         {
-            var persona = _contexto.Persona
-            .Where(o => o.PersonaID == prestamo.PrestamoID)
-            .AsNoTracking()
-            .SingleOrDefault();
+            var persona = _contexto.Persona.Find(prestamo.PersonaID);
             
             if(persona != null)
             {
@@ -62,7 +59,7 @@ public class PrestamoBLL
                 persona.Balance += prestamo.Monto;
                 _contexto.Entry(persona).State = EntityState.Modified;
                 _contexto.SaveChanges();
-                _contexto.Entry(persona).State = EntityState.Modified;
+                _contexto.Entry(persona).State = EntityState.Detached;
 
             }
             else
@@ -96,30 +93,28 @@ public class PrestamoBLL
 
     public bool Eliminar(Prestamo prestamo){
 
-        var persona = _contexto.Persona.Where(p => p.PersonaID == prestamo.PersonaID).AsNoTracking().SingleOrDefault();
+        var persona = _contexto.Persona.Find(prestamo.PersonaID);
 
-        if(persona != null)
+        if(persona!= null)
         {
             persona.Balance -= prestamo.Monto;
-            _contexto.Entry(persona).State =EntityState.Modified;
+            _contexto.Entry(persona).State = EntityState.Modified;
             _contexto.SaveChanges();
             _contexto.Entry(persona).State = EntityState.Detached;
+            
         }
         else
         {
-            Console.WriteLine("Persona No Existe");
-
+            Console.WriteLine("Persona no encontrada");
         }
 
-
-
-        _contexto.Entry(prestamo).State = EntityState.Deleted;
-
-        var eliminado = _contexto.SaveChanges() > 0;
-
+        _contexto.Entry(prestamo).State =EntityState.Deleted;
+        _contexto.Database.ExecuteSqlRaw($"DELETE FROM Prestamo WHERE PrestamoID = {prestamo.PrestamoID};");
         _contexto.Entry(prestamo).State = EntityState.Detached;
 
-        return eliminado;
+        return _contexto.SaveChanges() > 0;
+        
+
         
 
 
